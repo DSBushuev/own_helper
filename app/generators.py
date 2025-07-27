@@ -15,7 +15,7 @@ client = AsyncOpenAI(
 
 async def gpt(question):
     response = await client.chat.completions.create(
-        model="openrouter/openchat",
+        model="openchat/openchat-7b",
         messages=[
             {"role": "user", "content": str(question)}
         ]
