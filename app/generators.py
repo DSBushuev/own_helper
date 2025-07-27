@@ -10,7 +10,7 @@ client = OpenAI(
 )
 
 async def gpt(question):
-    response = await client.chat.completions.create(
+    response = client.chat.completions.create(
         model="openchat/openchat-7b",
         messages=[
             {"role": "user", "content": str(question)}
