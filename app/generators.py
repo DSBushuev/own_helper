@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client = AsyncOpenAI(
-    api_key=os.getenv("AI_TOKEN"),  # Ключ OpenRouter
+    api_key=os.getenv("OPENROUTER_API_KEY"),  # Ключ OpenRouter
     base_url="https://openrouter.ai/api/v1",  # Новый базовый адрес
     default_headers={
         "HTTP-Referer": "https://yourdomain.com",  # <-- желательно, но можно удалить
