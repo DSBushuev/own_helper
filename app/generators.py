@@ -17,5 +17,9 @@ async def gpt(question):
         client.chat.completions.create,
         model="openchat/openchat-7b",
         messages=[{"role": "user", "content": str(question)}]
+        extra_headers={
+        "HTTP-Referer": "https://t.me/MyOwnHelper_chatBot",
+        "X-Title": "my_helper"
+    }
     )
     return response.choices[0].message.content
