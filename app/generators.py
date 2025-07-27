@@ -1,4 +1,5 @@
 import os
+import asyncio
 from openai import OpenAI
 from dotenv import load_dotenv
 
@@ -12,10 +13,11 @@ client = OpenAI(
 )
 
 async def gpt(question):
-    response = client.chat.completions.create(
+    response = await asyncio.to_thread(client.chat.completions.create(
         model="openchat/openchat-7b",
         messages=[
             {"role": "user", "content": str(question)}
         ]
+        )
     )
     return response.choices[0].message.content
