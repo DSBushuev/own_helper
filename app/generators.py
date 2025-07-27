@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+print("OpenRouter API Key:", repr(os.getenv("OPENROUTER_API_KEY")))
+
 client = OpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),  # Ключ OpenRouter
     base_url="https://openrouter.ai/api/v1",  # Новый базовый адрес
