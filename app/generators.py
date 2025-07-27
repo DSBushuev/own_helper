@@ -14,12 +14,12 @@ client = OpenAI(
 
 async def gpt(question):
     response = await asyncio.to_thread(
-        client.chat.completions.create,
+        client.chat.completions.create(
         model="openchat/openchat-7b",
         messages=[{"role": "user", "content": str(question)}],
         extra_headers={
         "HTTP-Referer": "https://t.me/MyOwnHelper_chatBot",
-        "X-Title": "my_helper"
-    }
+        "X-Title": "my_helper"}
+        )
     )
     return response.choices[0].message.content
