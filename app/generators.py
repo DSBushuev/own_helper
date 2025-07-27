@@ -12,7 +12,7 @@ client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
 )
 
-async def gpt(question):
+def gpt(question):
     response = client.chat.completions.create(
         extra_headers={
         "HTTP-Referer": "https://t.me/MyOwnHelper_chatBot",
