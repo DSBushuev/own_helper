@@ -13,7 +13,7 @@ client = OpenAI(
 async def gpt(question):
     response = await asyncio.to_thread(
         client.chat.completions.create,
-        model="z-ai/glm-4.5-air:free",
+        model="qwen/qwen3-coder:free",
         messages=[
             {"role": "user", "content": str(question)}
         ]
