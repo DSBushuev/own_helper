@@ -22,7 +22,7 @@ async def cmd_start(message:Message, state:FSMContext):
 async def generate(message:Message, state:FSMContext):
     await state.set_state(Generate.text)
     respone = await gpt(message.from_user.id, message.text)
-    await message.answer(respone.choices[0].message.content)
+    await message.answer(respone)
     await state.clear()
 
 
