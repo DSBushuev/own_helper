@@ -1,17 +1,21 @@
+import asyncio
 import os
-import httpx
-from openai import AsyncOpenAI
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
-client = AsyncOpenAI(api_key=os.getenv('OPENROUTER_API_KEY'))
+
+client = OpenAI(
+    api_key=os.getenv('OPENROUTER_API_KEY'),
+    base_url='https://openrouter.ai/api/v1'
+)
 
 async def gpt(question):
-    response = await client.chat.completions.create(
-        extra_body={},
+    response = await asyncio.to_thread(
+        client.chat.completions.create,
         model="z-ai/glm-4.5-air:free",
-        messages=[{"role": "user",
-                   "content": str(question)}]
-        
+        messages=[
+            {"role": "user", "content": str(question)}
+        ]
     )
     return response
