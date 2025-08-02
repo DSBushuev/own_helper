@@ -15,7 +15,10 @@ client = OpenAI(
 
 # Подключение к Redis (по умолчанию: localhost, порт 6379)
 url = os.getenv("REDIS_URL")
+if not url:
+    raise ValueError("REDIS_URL не задан в переменных окружения")
 parsed = urllib.parse.urlparse(url)
+
 
 redis = aioredis.Redis(
     host=parsed.hostname,
@@ -53,16 +56,25 @@ async def get_history(user_id):
 
 async def gpt(user_id, question):
     try:
-        await save_message(user_id, "user", question)
+        # Получаем историю из Redis
         history = await get_history(user_id)
 
+        # Добавляем текущий вопрос в конец истории
+        messages = history + [{"role": "user", "content": question}]
+
+        # Отправляем запрос к GPT с полной историей
         response = await asyncio.to_thread(
             client.chat.completions.create,
             model="qwen/qwen3-coder:free",
-            messages=history
+            messages=messages
         )
+
         reply = response.choices[0].message.content
+
+        # Сохраняем в Redis текущий вопрос и ответ
+        await save_message(user_id, "user", question)
         await save_message(user_id, "assistant", reply)
+
         return reply
 
     except Exception as e:
