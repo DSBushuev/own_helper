@@ -14,10 +14,10 @@ client = OpenAI(
 )
 
 # Подключение к Redis (по умолчанию: localhost, порт 6379)
-url = os.getenv("REDIS_URL")
-if not url:
+REDIS_URL="rediss://default:ARwrAAIjcDExYjkzMmYzOWYzMDA0ZGQ0ODY3ODQ5YWE5ZTg2MDVlM3AxMA@discrete-hedgehog-7211.upstash.io:6379"
+if not REDIS_URL:
     raise ValueError("REDIS_URL не задан в переменных окружения")
-parsed = urllib.parse.urlparse(url)
+parsed = urllib.parse.urlparse(REDIS_URL)
 
 
 redis = aioredis.Redis(
