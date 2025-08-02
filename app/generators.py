@@ -65,7 +65,7 @@ async def gpt(user_id, question):
         # Отправляем запрос к GPT с полной историей
         response = await asyncio.to_thread(
             client.chat.completions.create,
-            model="qwen/qwen3-coder:free",
+            model="nvidia/llama-3.1-nemotron-ultra-253b-v1:free",
             messages=messages
         )
 
