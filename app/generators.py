@@ -4,7 +4,7 @@ from openai import AsyncOpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
-client = AsyncOpenAI(api_key=os.getenv('AI_TOKEN'))
+client = AsyncOpenAI(api_key=os.getenv('OPENROUTER_API_KEY'))
 
 async def gpt(question):
     response = await client.chat.completions.create(
