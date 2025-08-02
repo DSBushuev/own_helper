@@ -62,16 +62,15 @@ async def gpt(user_id, question):
         # Добавляем текущий вопрос в конец истории
         messages = history + [{"role": "user", "content": question}]
 
-        # Отправляем запрос к GPT с полной историей
-        response = await asyncio.to_thread(
-            client.chat.completions.create,
+        # Асинхронный вызов OpenRouter API
+        response = await client.chat.completions.create(
             model="qwen/qwen3-coder:free",
             messages=messages
         )
 
         reply = response.choices[0].message.content
 
-        # Сохраняем в Redis текущий вопрос и ответ
+        # Сохраняем вопрос и ответ в Redis
         await save_message(user_id, "user", question)
         await save_message(user_id, "assistant", reply)
 
